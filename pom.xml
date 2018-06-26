@@ -26,7 +26,7 @@
   </repository>  
   <snapshotRepository>
      <id>deployment</id>
-     <name>Internal Releases</name>
+     <name>Internal Release</name>
      <url>http://192.168.121.128:8090/nexus/content/repositories/snapshots/</url>
   </snapshotRepository>
 </distributionManagement>

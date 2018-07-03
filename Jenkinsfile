@@ -49,7 +49,7 @@ pipeline {
             }
 			steps {
 				unstash 'source'
-				withEnv(["PATH+MAVEN=${tool 'maven3'}/bin"]) {
+				withEnv(["PATH+MAVEN=${tool 'M3'}/bin"]) {
 					sh "mvn clean package"		  
 				}				
 			}

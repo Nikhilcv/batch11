@@ -50,7 +50,7 @@ pipeline {
 			steps {
 				unstash 'source'
 				withEnv(["PATH+MAVEN=${tool 'M2'}/bin"]) {
-					sh "mvn clean package"		  
+					sh "mvn clean install"		  
 				}				
 			}
 			post {

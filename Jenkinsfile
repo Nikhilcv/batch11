@@ -6,7 +6,7 @@ pipeline {
 				label "slave"
             }
 			steps {
-				git 'git@github.com:venkat09docs/batch10.git'
+				git 'https://github.com/Nikhilcv/batch11.git'
 				withEnv(["PATH+MAVEN=${tool 'M2'}/bin"]) {
 					sh "mvn clean package"		  
 				}

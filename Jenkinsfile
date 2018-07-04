@@ -3,11 +3,11 @@ pipeline {
 	stages {
 		stage ('build'){
 			agent {
-				label "master"
+				label "slave"
             }
 			steps {
 				git 'git@github.com:venkat09docs/batch10.git'
-				withEnv(["PATH+MAVEN=${tool 'M3'}/bin"]) {
+				withEnv(["PATH+MAVEN=${tool 'M2'}/bin"]) {
 					sh "mvn clean package"		  
 				}
 				stash excludes: 'target/', includes: '**', name: 'source'
@@ -15,18 +15,18 @@ pipeline {
 		}
 		stage ('test') {
 			agent {
-				label "master"
+				label "slave"
             }
 			steps {
 				parallel (
 					'integration': { 
 						unstash 'source'
-						withEnv(["PATH+MAVEN=${tool 'M3'}/bin"]) {
+						withEnv(["PATH+MAVEN=${tool 'M2'}/bin"]) {
 							sh "mvn clean package"		  
 						}		  						
 					}, 'quality': {
 						unstash 'source'
-						withEnv(["PATH+MAVEN=${tool 'M3'}/bin"]) {
+						withEnv(["PATH+MAVEN=${tool 'M2'}/bin"]) {
 							sh "mvn clean package"		  
 						}		  						
 					}
@@ -35,7 +35,7 @@ pipeline {
 		}
 		stage ('approve') {
 			agent {
-				label "master"
+				label "slave"
             }
 			steps {
 				timeout(time: 7, unit: 'DAYS') {
@@ -45,11 +45,11 @@ pipeline {
 		}
 		stage ('deploy') {
 			agent {
-				label "master"
+				label "slave"
             }
 			steps {
 				unstash 'source'
-				withEnv(["PATH+MAVEN=${tool 'M3'}/bin"]) {
+				withEnv(["PATH+MAVEN=${tool 'M2'}/bin"]) {
 					sh "mvn clean package"		  
 				}				
 			}
